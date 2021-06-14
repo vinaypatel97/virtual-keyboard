@@ -3,7 +3,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  width: 60%;
+  width: 80%;
   padding: 5px 0;
   margin: 250px auto;
   background: black;
@@ -61,10 +61,11 @@
 }
 
 .inputBox {
-  width: 60%;
+  min-width: 60%;
   font-size: 40px;
   font-weight: 500;
-  height: 150px;
+  min-height: 150px;
+  max-height: 150px;
   padding: 12px 20px;
   margin: 50px auto;
   display: inline-block;

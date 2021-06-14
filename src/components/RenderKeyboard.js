@@ -7,7 +7,9 @@ import {
     CAPS_LOCK,
     ENTER,
     SPACE,
-    SHIFT
+    SHIFT,
+    TAB,
+    SUB_KEYS
 } from '../utils/constant';
 
 const RenderKeyboard = () => {
@@ -19,7 +21,7 @@ const RenderKeyboard = () => {
 
     const clickHandler = (e) => {
         if (e.target.tagName === 'BUTTON') {
-
+            document.getElementById('input').focus();
             const keyText = e.target.innerText;
 
             switch (keyText) {
@@ -37,6 +39,9 @@ const RenderKeyboard = () => {
                     break;
                 case SHIFT:
                     setShiftKeyFlag(val => !val);
+                    break;
+                case TAB:
+                    setInputVal(inputVal => inputVal + "    ");
                     break;
                 default:
                     if (ALPHA.includes(keyText.toLowerCase())) setAlphabet(arr => shuffle(arr));
@@ -97,6 +102,10 @@ const RenderKeyboard = () => {
                 return (
                     <button type="button" className="keyboardKey keyboardKey--extra-wide">{value}</button>
                 )
+            case TAB:
+                return (
+                    <button type="button" className="keyboardKey keyboardKey--wide">{value}</button>
+                )
             default:
                 return (
                     <button type="button" className="keyboardKey">{caps ? value.toUpperCase() : value}</button>
@@ -105,11 +114,11 @@ const RenderKeyboard = () => {
     }
 
     function renderKeys(alphabet) {
-        const keyLayout = [...NUMS, DELETE, ...alphabet, SHIFT, CAPS_LOCK, SPACE, ENTER]
+        const keyLayout = [...NUMS, DELETE, TAB, ...alphabet, ...SUB_KEYS, SHIFT, CAPS_LOCK, SPACE, ENTER]
         return (
             keyLayout.map((key, index) => {
                 // insertLineBreak - line break after these below mentined keys
-                const insertLineBreak = [DELETE, alphabet[9], alphabet[18], SHIFT, ENTER].indexOf(key) !== -1;
+                const insertLineBreak = [DELETE, alphabet[9], alphabet[18], alphabet[25], SHIFT, ENTER].indexOf(key) !== -1;
                 return (
                     <span key={`${key}_${index}`}>
                         <RenderElement value={key} />
