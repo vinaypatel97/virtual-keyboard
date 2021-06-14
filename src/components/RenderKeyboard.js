@@ -21,7 +21,6 @@ const RenderKeyboard = () => {
 
     const clickHandler = (e) => {
         if (e.target.tagName === 'BUTTON') {
-            document.getElementById('input').focus();
             const keyText = e.target.innerText;
 
             switch (keyText) {
