@@ -15,7 +15,7 @@ import {
 const RenderKeyboard = () => {
 
     const [inputVal, setInputVal] = useState("");
-    const [alphabet, setAlphabet] = useState(ALPHA);
+    const [alphabet, setAlphabet] = useState([...NUMS, ...ALPHA, ...SUB_KEYS]);
     const [caps, setCaps] = useState(false);
     const [shiftKeyFlag, setShiftKeyFlag] = useState(false);
 
@@ -43,9 +43,13 @@ const RenderKeyboard = () => {
                     setInputVal(inputVal => inputVal + "    ");
                     break;
                 default:
-                    if (ALPHA.includes(keyText.toLowerCase())) setAlphabet(arr => shuffle(arr));
                     let nextChar = keyText;
                     let shiftFlag;
+
+                    setAlphabet(arr => {
+                        return shuffle(arr)
+                    });
+
                     setShiftKeyFlag(val => {
                         shiftFlag = val;
                         if (val) return !val;
@@ -113,11 +117,11 @@ const RenderKeyboard = () => {
     }
 
     function renderKeys(alphabet) {
-        const keyLayout = [...NUMS, DELETE, TAB, ...alphabet, ...SUB_KEYS, SHIFT, CAPS_LOCK, SPACE, ENTER]
+        const keyLayout = [...alphabet.slice(0, 13), DELETE, TAB, ...alphabet.slice(13, 47), SHIFT, CAPS_LOCK, SPACE, ENTER]
         return (
             keyLayout.map((key, index) => {
                 // insertLineBreak - line break after these below mentined keys
-                const insertLineBreak = [DELETE, alphabet[9], alphabet[18], alphabet[25], SHIFT, ENTER].indexOf(key) !== -1;
+                const insertLineBreak = [DELETE, alphabet[22], alphabet[31], alphabet[38], SHIFT, ENTER].indexOf(key) !== -1;
                 return (
                     <span key={`${key}_${index}`}>
                         <RenderElement value={key} />
